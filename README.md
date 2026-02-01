@@ -27,3 +27,6 @@ User Question → Prompt + Schema → LLM → SQL Validation → Execution → S
 **Input**
 ```json
 { "question": "What is the count of employees?" }
+=======
+# nl-to-sql
+Natural Language to SQL engine that converts plain English questions into safe, executable SQL using schema-aware LLM prompting, validation, and PostgreSQL, exposed via FastAPI.
