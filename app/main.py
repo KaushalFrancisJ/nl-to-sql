@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+import re
 
 from .schema import get_db_schema
 from .prompt import sql_prompt
@@ -10,6 +11,11 @@ from .summarizer import summarize
 
 app = FastAPI(title="NL to SQL Engine")
 
+def extract_sql(text: str) -> str:
+    text = text.strip()
+    match = re.search(r'```(?:sql)?\s*([\s\S]*?)```', text)
+    return match.group(1).strip() if match else text
+
 class QueryRequest(BaseModel):
     question: str
 
@@ -18,7 +24,7 @@ def query_db(req: QueryRequest):
     schema = get_db_schema()
     prompt = sql_prompt(schema, req.question)
 
-    sql = llm.invoke(prompt).content.strip()
+    sql = extract_sql(llm.invoke(prompt).content)
 
 
     try:
