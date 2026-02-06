@@ -8,7 +8,7 @@ Database schema:
 Rules:
 - Use ONLY the tables and columns listed above
 - Generate ONLY SELECT queries
-- Use PostgreSQL syntax
+- Use MySQL syntax
 - Do NOT use INSERT, UPDATE, DELETE, DROP
 - Return ONLY the SQL query
 

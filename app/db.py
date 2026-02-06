@@ -2,6 +2,7 @@ import os
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
 from pathlib import Path
+from urllib.parse import quote_plus
 
 # Get project root (parent of app/)
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,8 +22,8 @@ if not all([DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD]):
     raise RuntimeError("Database environment variables not loaded")
 
 DB_URL = (
-    f"postgresql+psycopg2://{DB_USER}:"
-    f"{DB_PASSWORD}@"
+    f"mysql+pymysql://{quote_plus(DB_USER)}:"
+    f"{quote_plus(DB_PASSWORD)}@"
     f"{DB_HOST}:"
     f"{DB_PORT}/"
     f"{DB_NAME}"
